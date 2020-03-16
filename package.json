@@ -1,0 +1,32 @@
+{
+  "name": "pet-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shayan Khan",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.3",
+    "@types/node": "^13.9.1",
+    "tslint": "^6.1.0",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@types/cors": "^2.8.6",
+    "@types/multer": "^1.4.2",
+    "aws-sdk": "^2.640.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "into-stream": "^5.1.1",
+    "multer": "^1.4.2",
+    "pg": "^7.18.2"
+  }
+}
