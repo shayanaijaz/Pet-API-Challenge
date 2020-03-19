@@ -30,3 +30,14 @@ export const postPets = async (req: Request, res: Response) => {
 
     res.status(200).send('Pet saved successfully')
 }
+
+export const getPetsBreed = async (req: Request, res: Response) => {
+    let petType = req.query.type;
+
+    const repo = new PetRepository();
+
+    const breed_list = await repo.getPetBreed(petType);
+
+    res.status(200).send(breed_list);
+
+}

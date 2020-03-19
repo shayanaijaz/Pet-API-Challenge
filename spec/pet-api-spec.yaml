@@ -1,0 +1,91 @@
+openapi: 3.0.0
+info:
+  title: "Pets API"
+  version: "1.0.0"
+servers:
+  - url: https://pets-api.herokuapp.com
+    description: Local test environment
+paths:
+  /pets:
+    get:
+      summary: get all pets 
+      description: get all pets
+      tags: [Pets]
+      responses:
+        '200':
+          description: Pets data 
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetsResponse'
+    post:
+      summary: add a new pet
+      description: add a new pet
+      tags: [Pets]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/pets'
+      responses:
+        '200':
+          description: pet data received
+  /pets/{id}:
+    get:
+      summary: get a pet by ID
+      tags: [Pets]
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: numberic ID of pet to get
+      responses:
+        '200':
+          description: Pets data 
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetsResponse'
+components:
+  schemas:
+    pets:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        breed:
+          type: string
+        latitude: 
+          type: number
+        longitude:
+          type: number
+        image:
+          type: string
+          format: binary
+    PetsResponse:
+      type: object
+      properties:
+        pets:
+          type: object
+          properties:
+            ID: 
+              type: number
+            name:
+              type: string
+            type:
+              type: string
+            breed:
+              type: string
+            image:
+              type: string
+            latitude:
+              type: number
+            longitude:
+              type: number
+    
+      

@@ -1,4 +1,5 @@
 require('dotenv').config();
+import axios from 'axios';
 
 
 const {Client} = require('pg')
@@ -60,7 +61,7 @@ export class PetRepository
         client.connect();
 
         const queryString: string = 'INSERT INTO public.pets( ' +
-            '"Name", "Type", "Breed", "Latitude", "Longitude", "Image") ' +
+            '"name", "type", "breed", "latitude", "longitude", "image") ' +
             'VALUES ($1, $2, $3, $4, $5, $6)';
 
         const values = [name, type, breed, latitude, longitude, fileURL];
@@ -74,6 +75,32 @@ export class PetRepository
         catch (err) {
             console.log(err.stack)
         }
+    }
 
+    async getPetBreed(type: string) {
+        let response: any = [];
+
+        try {
+
+            if (type === "dog") {
+                response = await axios.get('https://api.thedogapi.com/v1/breeds', {
+                    headers: {
+                        'x-api-key': process.env.DOG_API_KEY
+                    }
+                })  
+            }
+            else if (type === "cat") {
+                response = await axios.get('https://api.thecatapi.com/v1/breeds', {
+                    headers: {
+                        'x-api-key': process.env.CAT_API_KEY
+                    }
+                }) 
+            }
+
+            return response.data;
+
+        } catch (err) {
+            console.log(err)
+        }
     }
 }
