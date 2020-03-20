@@ -23,6 +23,8 @@ The endpoints to communicate with the API are as follows:
 # Technologies Used 
 
 - Node.js
+- Express
 - Typescript 
 - PostgresSQL
+- Amazon S3
 
