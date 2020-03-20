@@ -23,6 +23,7 @@ export class PetRepository
         try {
             result = await client.query('SELECT * from public.pets')
             console.log(result.rows)
+            await client.end()
         }
         catch (err){
             console.log(err.stack)
@@ -42,6 +43,7 @@ export class PetRepository
         try {
             result = await client.query('SELECT * FROM public.pets WHERE "ID" = $1', values)
             console.log(result.rows)
+            await client.end()
         }
         catch (err) {
             console.log(err.stack)
@@ -66,14 +68,16 @@ export class PetRepository
 
         const values = [name, type, breed, latitude, longitude, fileURL];
 
-        var result;
+        var result = [];
 
         try {
             result = await client.query(queryString, values);
-            console.log(result)
+            return (result)
+            await client.end()
         }
         catch (err) {
             console.log(err.stack)
+            return(result)
         }
     }
 
