@@ -26,13 +26,9 @@ export const postPets = async (req: Request, res: Response) => {
     var fileURL = await uploadData(req.file, filename);
     
     const repo = new PetRepository();
-    const result = await repo.postPets(req, fileURL);
+    await repo.postPets(req, fileURL);
 
-    if (result.length != 0) {
-        res.status(200).send('Pet saved successfully')
-    } else {
-        res.status(400).send('An error has occured')
-    }
+    res.status(200).send('Pet saved successfully')
 }
 
 export const getPetsBreed = async (req: Request, res: Response) => {
