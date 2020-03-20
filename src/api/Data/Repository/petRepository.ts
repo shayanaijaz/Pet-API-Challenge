@@ -12,12 +12,12 @@ const client = new Client({
     port: process.env.POSTGRES_DB_PORT
 })
 
+client.connect();
+
 export class PetRepository
 {
     async getPets()
     {
-        client.connect();
-
         var result;
 
         try {
@@ -26,17 +26,12 @@ export class PetRepository
         }
         catch (err){
             console.log(err.stack)
-        } finally {
-            await client.end();
         }
-
         return result.rows;        
     }
 
     async getPetsByID(id: string)
     {
-        client.connect();
-
         const values = [id];
 
         var result;
@@ -46,8 +41,6 @@ export class PetRepository
         }
         catch (err) {
             console.log(err.stack)
-        } finally {
-            await client.end();
         }
 
         return result.rows;
@@ -60,8 +53,6 @@ export class PetRepository
         const breed: string = data.body.breed;
         let latitude: number = data.body.latitude;
         let longitude: number = data.body.longitude;
-
-        client.connect();
 
         const queryString: string = 'INSERT INTO public.pets( ' +
             '"name", "type", "breed", "latitude", "longitude", "image") ' +
@@ -76,10 +67,7 @@ export class PetRepository
         }
         catch (err) {
             console.log(err.stack)
-        } finally {
-            await client.end();
-        }
-
+        } 
     }
 
     async getPetBreed(type: string) {
