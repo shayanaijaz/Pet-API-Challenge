@@ -22,10 +22,12 @@ export class PetRepository
 
         try {
             result = await client.query('SELECT * from public.pets')
-            console.log(result.rows)
+            
         }
         catch (err){
             console.log(err.stack)
+        } finally {
+            await client.end();
         }
 
         return result.rows;        
@@ -41,10 +43,11 @@ export class PetRepository
 
         try {
             result = await client.query('SELECT * FROM public.pets WHERE "ID" = $1', values)
-            console.log(result.rows)
         }
         catch (err) {
             console.log(err.stack)
+        } finally {
+            await client.end();
         }
 
         return result.rows;
@@ -66,15 +69,17 @@ export class PetRepository
 
         const values = [name, type, breed, latitude, longitude, fileURL];
 
-        var result;
+        var result = [];
 
         try {
             result = await client.query(queryString, values);
-            console.log(result)
         }
         catch (err) {
             console.log(err.stack)
+        } finally {
+            await client.end();
         }
+
     }
 
     async getPetBreed(type: string) {
